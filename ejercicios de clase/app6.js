@@ -1,7 +1,7 @@
+//GARCIA SEBASTIAN LUIS ERICK     PROGRAMACION WEB2    1710
+
 let var1 = parseFloat (prompt("Ingresa el numero 1"));
 let var2 = parseFloat (prompt("Ingresa el numero 2"));
-
-
 
 let suma= var1 + var2;
 let resta= var1 - var2;
