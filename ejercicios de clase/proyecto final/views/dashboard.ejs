@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/estilos.css">
+    <title>Dashboard - Sistema de Carros</title>
+</head>
+<body>
+    <!-- ===== ENCABEZADO DEL DASHBOARD ===== -->
+    <header class="dashboard-header">
+        <h1>🚗 Sistema de Gestión de Carros</h1>
+        <div class="user-info">
+            <!-- Mostramos el nombre del usuario que inició sesión -->
+            Bienvenido, <strong><%= user.username %></strong>
+            <!-- Enlace para cerrar sesión -->
+            <a href="/logout" class="btn-logout">Cerrar Sesión</a>
+        </div>
+    </header>
+
+    <!-- ===== CONTENIDO PRINCIPAL ===== -->
+    <main class="dashboard-main">
+        <!-- SECCIÓN: FORMULARIO PARA AGREGAR CARRO -->
+        <section class="add-car-form">
+            <h2>➕ Agregar Nuevo Carro</h2>
+            <!-- Formulario que envía los datos a la ruta /add-car -->
+            <form action="/add-car" method="post">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="marca">Marca:</label>
+                        <input type="text" id="marca" name="marca" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="modelo">Modelo:</label>
+                        <input type="text" id="modelo" name="modelo" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="año">Año:</label>
+                        <!-- Input numérico con límites para años válidos -->
+                        <input type="number" id="año" name="año" min="1900" max="2030" required>
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="color">Color:</label>
+                        <input type="text" id="color" name="color">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="precio">Precio ($):</label>
+                        <!-- Input para decimales con paso de 0.01 -->
+                        <input type="number" id="precio" name="precio" step="0.01" min="0" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <button type="submit" class="btn-add">Agregar Carro</button>
+                    </div>
+                </div>
+            </form>
+        </section>
+
+        <!-- SECCIÓN: TABLA DE CARROS EXISTENTES -->
+        <section class="cars-table">
+            <h2>📊 Inventario de Carros</h2>
+            
+            <!-- Verificamos si hay carros en la base de datos -->
+            <% if (carros.length > 0) { %>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Marca</th>
+                            <th>Modelo</th>
+                            <th>Año</th>
+                            <th>Color</th>
+                            <th>Precio</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Iteramos sobre cada carro usando EJS -->
+                        <% carros.forEach(carro => { %>
+                            <tr>
+                                <td><%= carro.id %></td>
+                                <td><%= carro.marca %></td>
+                                <td><%= carro.modelo %></td>
+                                <td><%= carro.año %></td>
+                                <td><%= carro.color %></td>
+                                <!-- Formateamos el precio con separadores de miles -->
+                                <td>$<%= carro.precio.toLocaleString() %></td>
+                                <td class="actions">
+                                    <!-- Botón de editar con todos los datos del carro en atributos data -->
+                                    <button class="btn-edit edit-btn" 
+                                        data-id="<%= carro.id %>"
+                                        data-marca="<%= carro.marca %>"
+                                        data-modelo="<%= carro.modelo %>"
+                                        data-año="<%= carro.año %>"
+                                        data-color="<%= carro.color %>"
+                                        data-precio="<%= carro.precio %>">
+                                        ✏️ Editar
+                                    </button>
+                                    <!-- Enlace para eliminar con confirmación JavaScript -->
+                                    <a href="/delete-car/<%= carro.id %>" class="btn-delete" onclick="return confirm('¿Estás seguro de eliminar este carro?')">🗑️ Eliminar</a>
+                                </td>
+                            </tr>
+                        <% }); %>
+                    </tbody>
+                </table>
+            <% } else { %>
+                <!-- Mensaje que se muestra cuando no hay carros -->
+                <div class="no-data">
+                    <p>No hay carros en el inventario. ¡Agrega el primero!</p>
+                </div>
+            <% } %>
+        </section>
+    </main>
+
+    <!-- ===== VENTANA EMERGENTE PARA EDITAR CARROS ===== -->
+    <!-- Esta ventana está oculta por defecto (display: none) -->
+    <div id="editModal" class="modal">
+        <div class="modal-content">
+           <div class="modal-header">
+                <h2>✏️ Editar Carro</h2>
+                <!-- Botón X para cerrar la ventana -->
+                <button type="button" class="close-modal">&times;</button>
+            </div>
+            <!-- Formulario de edición que se envía dinámicamente -->
+            <form id="editForm" method="post">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="editMarca">Marca:</label>
+                        <input type="text" id="editMarca" name="marca" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="editModelo">Modelo:</label>
+                        <input type="text" id="editModelo" name="modelo" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="editAño">Año:</label>
+                        <input type="number" id="editAño" name="año" min="1900" max="2030" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="editColor">Color:</label>
+                        <input type="text" id="editColor" name="color">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="editPrecio">Precio ($):</label>
+                        <input type="number" id="editPrecio" name="precio" step="0.01" min="0" required>
+                    </div>
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn-update">✅ Actualizar Carro</button>
+                    <button type="button" class="btn-cancel close-modal">❌ Cancelar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+<!-- ===== JAVASCRIPT PARA LA VENTANA EMERGENTE ===== -->
+<script>
+    // Variables principales para controlar la ventana emergente
+    const editModal = document.getElementById('editModal');        // La ventana completa
+    const closeButtons = document.querySelectorAll('.close-modal'); // Botones de cerrar (X y Cancelar)
+    const editForm = document.getElementById('editForm');          // Formulario de edición
+
+    // Función para abrir la ventana emergente con los datos del carro seleccionado
+    function openEditModal(button) {
+        // Obtenemos todos los datos del carro desde los atributos data del botón
+        const id = button.getAttribute('data-id');
+        const marca = button.getAttribute('data-marca');
+        const modelo = button.getAttribute('data-modelo');
+        const año = button.getAttribute('data-año');
+        const color = button.getAttribute('data-color');
+        const precio = button.getAttribute('data-precio');
+        
+        // Llenamos el formulario con los datos actuales del carro
+        document.getElementById('editMarca').value = marca;
+        document.getElementById('editModelo').value = modelo;
+        document.getElementById('editAño').value = año;
+        document.getElementById('editColor').value = color;
+        document.getElementById('editPrecio').value = precio;
+        
+        // Guardamos los datos originales para poder comparar después si hubo cambios
+        editForm.setAttribute('data-original-marca', marca);
+        editForm.setAttribute('data-original-modelo', modelo);
+        editForm.setAttribute('data-original-año', año);
+        editForm.setAttribute('data-original-color', color);
+        editForm.setAttribute('data-original-precio', precio);
+        
+        // Actualizamos la URL del formulario con el ID del carro a editar
+        editForm.action = `/update-car/${id}`;
+        
+        // Mostramos la ventana emergente
+        editModal.style.display = 'block';
+    }
+
+    // Función para cerrar la ventana emergente
+    function closeModal() {
+        editModal.style.display = 'none';  // Ocultamos la ventana
+        editForm.reset();                  // Limpiamos el formulario
+    }
+
+    // Configuramos los eventos para cerrar la ventana con los botones X y Cancelar
+    closeButtons.forEach(button => {
+        button.addEventListener('click', closeModal);
+    });
+
+    // Cerramos la ventana si el usuario hace clic fuera del contenido (en el fondo oscuro)
+    window.addEventListener('click', (event) => {
+        if (event.target === editModal) {
+            closeModal();
+        }
+    });
+
+    // Cerramos la ventana cuando el usuario presiona la tecla ESC
+    document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape' && editModal.style.display === 'block') {
+            closeModal();
+        }
+    });
+
+    // Configuramos los eventos para los botones de "Editar" en la tabla
+    document.addEventListener('DOMContentLoaded', function() {
+        const editButtons = document.querySelectorAll('.edit-btn');
+        
+        editButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                openEditModal(this);  // 'this' se refiere al botón que se clickeó
+            });
+        });
+    });
+
+    // Manejamos el envío del formulario de edición
+    editForm.addEventListener('submit', function(e) {
+        e.preventDefault();  // Evitamos el envío inmediato del formulario
+        
+        // Obtenemos los datos originales del carro (antes de editar)
+        const originalMarca = this.getAttribute('data-original-marca');
+        const originalModelo = this.getAttribute('data-original-modelo');
+        const originalAño = this.getAttribute('data-original-año');
+        const originalColor = this.getAttribute('data-original-color');
+        const originalPrecio = this.getAttribute('data-original-precio');
+        
+        // Obtenemos los nuevos datos (lo que el usuario escribió en el formulario)
+        const nuevaMarca = document.getElementById('editMarca').value;
+        const nuevoModelo = document.getElementById('editModelo').value;
+        const nuevoAño = document.getElementById('editAño').value;
+        const nuevoColor = document.getElementById('editColor').value;
+        const nuevoPrecio = document.getElementById('editPrecio').value;
+        
+        // Verificamos campo por campo para detectar qué realmente cambió
+        const cambios = [];
+        
+        if (originalMarca !== nuevaMarca) {
+            cambios.push(`Marca: "${originalMarca}" → "${nuevaMarca}"`);
+        }
+        if (originalModelo !== nuevoModelo) {
+            cambios.push(`Modelo: "${originalModelo}" → "${nuevoModelo}"`);
+        }
+        if (originalAño !== nuevoAño) {
+            cambios.push(`Año: ${originalAño} → ${nuevoAño}`);
+        }
+        if (originalColor !== nuevoColor) {
+            cambios.push(`Color: "${originalColor}" → "${nuevoColor}"`);
+        }
+        if (originalPrecio !== nuevoPrecio) {
+            cambios.push(`Precio: $${originalPrecio} → $${nuevoPrecio}`);
+        }
+        
+        // Si detectamos cambios, mostramos confirmación al usuario
+        if (cambios.length > 0) {
+            const mensaje = "Se modificarán los siguientes campos:\n\n" + cambios.join('\n') + "\n\n¿Confirmas los cambios?";
+            
+            if (confirm(mensaje)) {
+                this.submit();  // Si confirma, enviamos el formulario
+            }
+            // Si cancela, no hacemos nada y la ventana sigue abierta
+        } else {
+            // Si no hay cambios, informamos al usuario y cerramos la ventana
+            alert('No se detectaron cambios en los campos.');
+            closeModal();
+        }
+    });
+</script>
+</body>
+</html>

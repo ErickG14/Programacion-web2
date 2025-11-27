@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/estilos.css">
+    <title>Registrar Usuario - Sistema de Carros</title>
+</head>
+<body class="login-body">
+    <!-- ===== CONTENEDOR PRINCIPAL DEL REGISTRO ===== -->
+    <div class="login-container">
+        <h1>🚗 Sistema de Carros</h1>
+        <h2>Registrar Nuevo Usuario</h2>
+        
+        <!-- ===== MANEJO DE MENSAJES ===== -->
+        <!-- Si hay un error (usuario existente, contraseñas no coinciden, etc.) -->
+        <% if (error) { %>
+            <div class="error-message">
+                <!-- Mensaje de error enviado desde el servidor -->
+                <%= error %>
+            </div>
+        <% } %>
+        
+        <!-- Si el registro fue exitoso -->
+        <% if (success) { %>
+            <div class="success-message">
+                <!-- Mensaje de éxito enviado desde el servidor -->
+                <%= success %>
+            </div>
+        <% } %>
+        
+        <!-- ===== FORMULARIO DE REGISTRO ===== -->
+        <!-- Formulario que envía los datos a la ruta /register por método POST -->
+        <form action="/register" method="post">
+            <div class="form-group">
+                <label for="username">Usuario:</label>
+                <!-- Campo para el nombre de usuario con placeholder de ejemplo -->
+                <input type="text" id="username" name="username" required 
+                       placeholder="Ej: juanperez">
+            </div>
+            
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <!-- Campo de email con validación HTML5 (type="email") -->
+                <input type="email" id="email" name="email" required 
+                       placeholder="Ej: juan@correo.com">
+            </div>
+            
+            <div class="form-group">
+                <label for="password">Contraseña:</label>
+                <!-- Campo de contraseña con indicación de longitud mínima -->
+                <input type="password" id="password" name="password" required 
+                       placeholder="Mínimo 6 caracteres">
+            </div>
+            
+            <div class="form-group">
+                <label for="confirmPassword">Confirmar Contraseña:</label>
+                <!-- Campo para verificar que la contraseña se escribió correctamente -->
+                <input type="password" id="confirmPassword" name="confirmPassword" required 
+                       placeholder="Repite la contraseña">
+            </div>
+            
+            <!-- ===== BOTONES DE ACCIÓN ===== -->
+            <div class="form-actions">
+                <!-- Botón para enviar el formulario y crear el usuario -->
+                <button type="submit" class="btn-login">✅ Registrar Usuario</button>
+                <!-- Enlace para volver al login sin registrar -->
+                <a href="/login" class="btn-cancel">❌ Cancelar</a>
+            </div>
+        </form>
+    </div>
+
+    <!-- ===== VALIDACIÓN EN EL FRONTEND ===== -->
+    <script>
+        // Validación de contraseñas coincidentes antes de enviar el formulario
+        document.querySelector('form').addEventListener('submit', function(e) {
+            // Obtenemos los valores de los campos de contraseña
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            
+            // Verificamos que las contraseñas coincidan
+            if (password !== confirmPassword) {
+                e.preventDefault(); // Detenemos el envío del formulario
+                alert('❌ Las contraseñas no coinciden. Por favor, verifica.');
+                return false; // Salimos de la función
+            }
+            
+            // Verificamos que la contraseña tenga al menos 6 caracteres
+            if (password.length < 6) {
+                e.preventDefault(); // Detenemos el envío del formulario
+                alert('❌ La contraseña debe tener al menos 6 caracteres.');
+                return false; // Salimos de la función
+            }
+            
+            // Si pasa todas las validaciones, el formulario se envía normalmente
+        });
+    </script>
+</body>
+</html>

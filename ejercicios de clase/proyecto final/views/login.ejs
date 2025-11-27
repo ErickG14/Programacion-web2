@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/estilos.css">
+    <title>Login - Sistema de Carros</title>
+</head>
+<body class="login-body">
+    <!-- ===== CONTENEDOR PRINCIPAL DEL LOGIN ===== -->
+    <div class="login-container">
+        <!-- Título principal del sistema -->
+        <h1>🚗 Sistema de Carros</h1>
+        <h2>Iniciar Sesión</h2>
+        
+        <!-- ===== MANEJO DE ERRORES ===== -->
+        <!-- Si hay un error (credenciales incorrectas, etc.), lo mostramos aquí -->
+        <% if (error) { %>
+            <div class="error-message">
+                <!-- El mensaje de error viene del servidor (app.js) -->
+                <%= error %>
+            </div>
+        <% } %>
+        
+        <!-- ===== FORMULARIO DE LOGIN ===== -->
+        <!-- Formulario que envía los datos a la ruta /login por método POST -->
+        <form action="/login" method="post">
+            <div class="form-group">
+                <label for="username">Usuario:</label>
+                <!-- Campo para el nombre de usuario (requerido) -->
+                <input type="text" id="username" name="username" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="password">Contraseña:</label>
+                <!-- Campo de contraseña (tipo password oculta los caracteres) -->
+                <input type="password" id="password" name="password" required>
+            </div>
+            
+            <!-- Botón para enviar el formulario -->
+            <button type="submit" class="btn-login">Ingresar</button>
+        </form>
+
+        <!-- ===== SECCIÓN DE REGISTRO ===== -->
+        <!-- Opción para usuarios nuevos que no tienen cuenta -->
+        <div class="register-section">
+            <p>¿No tienes cuenta?</p>
+            <!-- Enlace que lleva a la página de registro -->
+            <a href="/register" class="btn-register">➕ Registrar Nuevo Usuario</a>
+        </div>
+        
+        <!-- ===== INFORMACIÓN DE PRUEBA ===== -->
+        <!-- Datos de demostración para probar el sistema -->
+        <div class="login-info">
+            <p><strong>Usuario de prueba:</strong></p>
+            <p>Usuario: <code>admin</code></p>
+            <p>Contraseña: <code>admin123</code></p>
+        </div>
+    </div>
+</body>
+</html>

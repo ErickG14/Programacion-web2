@@ -1,0 +1,640 @@
+/* 
+   SISTEMA DE GESTIÓN DE CARROS - ESTILOS CSS
+   Proyecto Final de Programación Web
+   Estudiante: Garcia Sebastian Luis Erick
+   Materia: Programación Web
+*/
+
+/* ===== RESET Y CONFIGURACIÓN GENERAL ===== */
+/* Esto es para que todos los navegadores empiecen con los mismos valores */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box; /* Hace que padding y border no afecten el ancho total */
+}
+
+/* Estilos generales del cuerpo de la página */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Fuente moderna y legible */
+    background: linear-gradient(135deg, #1a1a1a 0%, #2d1b1b 100%); /* Gradiente oscuro con toques rojizos */
+    min-height: 100vh; /* Ocupa toda la altura de la pantalla */
+    color: #e0e0e0; /* Color de texto gris claro para buen contraste */
+    line-height: 1.6; /* Espaciado entre líneas para mejor legibilidad */
+}
+
+/* ===== PÁGINA DE LOGIN ===== */
+/* Centramos el formulario de login vertical y horizontalmente */
+.login-body {
+    display: flex;
+    justify-content: center; /* Centrado horizontal */
+    align-items: center; /* Centrado vertical */
+    min-height: 100vh; /* Toda la altura de la ventana */
+    padding: 20px; /* Espacio en dispositivos móviles */
+    background: linear-gradient(135deg, #1a1a1a 0%, #2d1b1b 100%); /* Mismo gradiente que el body */
+}
+
+/* Contenedor principal del login */
+.login-container {
+    background: rgba(40, 40, 40, 0.95); /* Fondo oscuro semi-transparente */
+    padding: 40px; /* Espaciado interno generoso */
+    border-radius: 15px; /* Esquinas redondeadas modernas */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5); /* Sombra para efecto de elevación */
+    width: 100%;
+    max-width: 400px; /* Ancho máximo para no estirarse demasiado */
+    text-align: center; /* Texto centrado */
+    border: 1px solid #5a2a2a; /* Borde sutil rojizo */
+}
+
+/* Títulos del login */
+.login-container h1 {
+    color: #d32f2f; /* Rojo principal del tema */
+    margin-bottom: 10px;
+    font-size: 2em;
+    font-weight: 300; /* Peso de fuente ligero para elegancia */
+    letter-spacing: 1px; /* Espaciado entre letras para mejor legibilidad */
+}
+
+.login-container h2 {
+    color: #bdbdbd; /* Gris claro para subtítulos */
+    margin-bottom: 30px;
+    font-size: 1.3em;
+    font-weight: 300;
+}
+
+/* Mensajes de error */
+.error-message {
+    background: #c62828; /* Rojo oscuro para errores */
+    color: white;
+    padding: 12px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    border-left: 4px solid #ff5252; /* Borde izquierdo acentuado */
+}
+
+/* ===== FORMULARIOS ===== */
+.form-group {
+    margin-bottom: 20px; /* Espacio entre campos del formulario */
+    text-align: left; /* Alineación izquierda para labels */
+}
+
+.form-group label {
+    display: block; /* Cada label en su propia línea */
+    margin-bottom: 8px;
+    font-weight: 500; /* Peso medio para importancia */
+    color: #bdbdbd; /* Gris claro */
+    font-size: 14px; /* Tamaño más pequeño para labels */
+}
+
+.form-group input {
+    width: 100%; /* Ocupa todo el ancho disponible */
+    padding: 12px 15px; /* Espaciado interno cómodo */
+    background: rgba(50, 50, 50, 0.8); /* Fondo oscuro semi-transparente */
+    border: 1px solid #5a2a2a; /* Borde sutil */
+    border-radius: 8px; /* Esquinas redondeadas */
+    font-size: 16px; /* Tamaño legible */
+    color: #e0e0e0; /* Texto claro */
+    transition: all 0.3s ease; /* Transición suave para efectos hover */
+}
+
+/* Efectos cuando el input está enfocado */
+.form-group input:focus {
+    outline: none; /* Quitamos el outline por defecto */
+    border-color: #d32f2f; /* Borde rojo al enfocar */
+    background: rgba(60, 60, 60, 0.8); /* Fondo un poco más claro */
+    box-shadow: 0 0 0 2px rgba(211, 47, 47, 0.2); /* Sombra exterior rojiza */
+}
+
+/* ===== DASHBOARD (PÁGINA PRINCIPAL) ===== */
+/* Encabezado del dashboard */
+.dashboard-header {
+    background: rgba(30, 30, 30, 0.95); /* Fondo muy oscuro */
+    padding: 20px 30px;
+    display: flex;
+    justify-content: space-between; /* Título a la izquierda, usuario a la derecha */
+    align-items: center;
+    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.5); /* Sombra para separación visual */
+    border-bottom: 1px solid #5a2a2a; /* Línea divisoria inferior */
+}
+
+.dashboard-header h1 {
+    color: #d32f2f; /* Rojo principal */
+    font-size: 1.8em;
+    font-weight: 300;
+}
+
+/* Información del usuario logueado */
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 15px; /* Espacio entre elementos */
+    color: #bdbdbd; /* Texto gris claro */
+}
+
+/* Contenido principal del dashboard */
+.dashboard-main {
+    padding: 30px;
+    max-width: 1200px; /* Ancho máximo para no extenderse demasiado */
+    margin: 0 auto; /* Centrado en pantallas grandes */
+}
+
+/* ===== FORMULARIOS EN DASHBOARD ===== */
+.add-car-form, .edit-form {
+    background: rgba(40, 40, 40, 0.9); /* Fondo oscuro */
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.4); /* Sombra suave */
+    margin-bottom: 30px; /* Espacio inferior */
+    border: 1px solid #5a2a2a; /* Borde sutil */
+}
+
+.add-car-form h2, .edit-form h2 {
+    color: #d32f2f; /* Rojo para títulos */
+    margin-bottom: 25px;
+    font-weight: 400;
+    font-size: 1.5em;
+}
+
+/* Diseño responsive para filas de formulario */
+.form-row {
+    display: flex;
+    gap: 20px; /* Espacio entre campos */
+    margin-bottom: 20px;
+    flex-wrap: wrap; /* En móviles, los campos se apilan */
+}
+
+.form-group {
+    flex: 1; /* Campos se expanden igualmente */
+    min-width: 200px; /* Ancho mínimo para no hacerse muy pequeños */
+}
+
+/* ===== TABLA DE CARROS ===== */
+.cars-table {
+    background: rgba(40, 40, 40, 0.9); /* Fondo oscuro */
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.4);
+    border: 1px solid #5a2a2a;
+}
+
+.cars-table h2 {
+    color: #d32f2f;
+    margin-bottom: 25px;
+    font-weight: 400;
+    font-size: 1.5em;
+}
+
+/* Estilos de la tabla */
+table {
+    width: 100%;
+    border-collapse: collapse; /* Sin espacios entre bordes */
+    margin-top: 10px;
+}
+
+th, td {
+    padding: 15px;
+    text-align: left;
+    border-bottom: 1px solid #5a2a2a; /* Líneas divisorias */
+}
+
+/* Encabezados de tabla */
+th {
+    background: rgba(211, 47, 47, 0.1); /* Fondo rojo muy tenue */
+    color: #d32f2f; /* Texto rojo */
+    font-weight: 500;
+    font-size: 14px;
+    text-transform: uppercase; /* Texto en mayúsculas */
+    letter-spacing: 0.5px; /* Espaciado para mejor legibilidad */
+}
+
+/* Efecto hover en filas */
+tr {
+    transition: background 0.3s ease; /* Transición suave */
+}
+
+tr:hover {
+    background: rgba(211, 47, 47, 0.05); /* Fondo rojo muy tenue al pasar mouse */
+}
+
+/* ===== BOTONES ===== */
+/* Botones principales (login, agregar, actualizar) */
+.btn-login, .btn-add, .btn-update {
+    background: linear-gradient(135deg, #d32f2f, #b71c1c); /* Gradiente rojo */
+    color: white;
+    padding: 14px 30px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 500;
+    transition: all 0.3s ease; /* Transición para efectos hover */
+    width: 100%; /* Botones de ancho completo */
+    margin-top: 10px;
+    letter-spacing: 0.5px;
+}
+
+/* Efectos hover en botones principales */
+.btn-login:hover, .btn-add:hover, .btn-update:hover {
+    background: linear-gradient(135deg, #b71c1c, #d32f2f); /* Invertimos el gradiente */
+    transform: translateY(-2px); /* Efecto de elevación */
+    box-shadow: 0 5px 15px rgba(211, 47, 47, 0.4); /* Sombra rojiza */
+}
+
+/* Botones secundarios (logout, volver, cancelar) */
+.btn-logout, .btn-back, .btn-cancel {
+    background: #5a2a2a; /* Rojo oscuro */
+    color: #e0e0e0;
+    padding: 10px 20px;
+    border-radius: 6px;
+    text-decoration: none; /* Sin subrayado en enlaces */
+    font-size: 14px;
+    transition: all 0.3s ease;
+    border: 1px solid #7a3a3a; /* Borde sutil */
+}
+
+.btn-logout:hover, .btn-back:hover, .btn-cancel:hover {
+    background: #7a3a3a; /* Rojo un poco más claro */
+    color: white;
+}
+
+/* Botón editar */
+.btn-edit {
+    background: rgba(76, 175, 80, 0.1); /* Verde muy tenue */
+    color: #4caf50; /* Verde */
+    padding: 8px 16px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 12px;
+    border: 1px solid #4caf50; /* Borde verde */
+    transition: all 0.3s ease;
+}
+
+/* Botón eliminar */
+.btn-delete {
+    background: rgba(244, 67, 54, 0.1); /* Rojo muy tenue */
+    color: #f44336; /* Rojo */
+    padding: 8px 16px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 12px;
+    border: 1px solid #f44336; /* Borde rojo */
+    transition: all 0.3s ease;
+}
+
+/* Efectos hover en botones de acción */
+.btn-edit:hover {
+    background: #4caf50; /* Verde sólido */
+    color: white;
+}
+
+.btn-delete:hover {
+    background: #f44336; /* Rojo sólido */
+    color: white;
+}
+
+/* Contenedor de botones de acción en tabla */
+.actions {
+    display: flex;
+    gap: 10px; /* Espacio entre botones */
+}
+
+/* ===== ACCIONES DE FORMULARIO ===== */
+.form-actions {
+    display: flex;
+    gap: 15px; /* Espacio entre botones */
+    margin-top: 25px; /* Espacio superior */
+}
+
+/* ===== MENSAJES Y ESTADOS ===== */
+/* Mensaje cuando no hay datos */
+.no-data {
+    text-align: center;
+    padding: 50px;
+    color: #757575; /* Gris medio */
+    font-size: 16px;
+}
+
+/* Información de login (usuario demo) */
+.login-info {
+    margin-top: 25px;
+    padding: 20px;
+    background: rgba(50, 50, 50, 0.6); /* Fondo gris oscuro */
+    border-radius: 8px;
+    font-size: 14px;
+    color: #bdbdbd;
+    border-left: 4px solid #d32f2f; /* Borde izquierdo acentuado */
+}
+
+.login-info code {
+    background: rgba(211, 47, 47, 0.1); /* Fondo rojo tenue */
+    color: #d32f2f; /* Texto rojo */
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-family: 'Courier New', monospace; /* Fuente tipo código */
+}
+
+/* ===== DISEÑO RESPONSIVE ===== */
+/* Para tablets y móviles (ancho máximo 768px) */
+@media (max-width: 768px) {
+    .form-row {
+        flex-direction: column; /* Campos apilados verticalmente */
+    }
+    
+    .dashboard-header {
+        flex-direction: column; /* Encabezado apilado */
+        gap: 15px;
+        text-align: center;
+        padding: 20px;
+    }
+    
+    .actions {
+        flex-direction: column; /* Botones apilados */
+    }
+    
+    .dashboard-main {
+        padding: 15px; /* Menos padding en móviles */
+    }
+    
+    .login-container {
+        margin: 20px; /* Margen en móviles */
+        padding: 30px 25px; /* Padding ajustado */
+    }
+}
+
+/* ===== SCROLLBAR PERSONALIZADO ===== */
+/* Para navegadores WebKit (Chrome, Safari, Edge) */
+::-webkit-scrollbar {
+    width: 8px; /* Ancho del scrollbar */
+}
+
+::-webkit-scrollbar-track {
+    background: #2d1b1b; /* Color del track */
+}
+
+::-webkit-scrollbar-thumb {
+    background: #d32f2f; /* Color del thumb (la parte que se mueve) */
+    border-radius: 4px; /* Esquinas redondeadas */
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #b71c1c; /* Color al pasar el mouse */
+}
+
+/* ===== MODAL (VENTANA EMERGENTE) ===== */
+/* Fondo del modal */
+.modal {
+    display: none; /* Oculto por defecto */
+    position: fixed; /* Posición fija para superponerse */
+    z-index: 1000; /* Alto z-index para estar encima de todo */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8); /* Fondo oscuro semi-transparente */
+    backdrop-filter: blur(5px); /* Efecto de desenfoque del fondo */
+    overflow: auto; /* Scroll si es necesario */
+}
+
+/* Contenido del modal */
+.modal-content {
+    background: rgba(30, 30, 30, 0.95); /* Fondo oscuro */
+    margin: 50px auto; /* Centrado vertical con margen */
+    padding: 0;
+    border-radius: 15px;
+    width: 90%;
+    max-width: 500px; /* Ancho máximo */
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7); /* Sombra pronunciada */
+    border: 1px solid #d32f2f; /* Borde rojo */
+    position: relative;
+    animation: modalAppear 0.3s ease-out; /* Animación de aparición */
+}
+
+/* Animación de aparición del modal */
+@keyframes modalAppear {
+    from {
+        opacity: 0;
+        transform: scale(0.8) translateY(-50px); /* Comienza más pequeño y arriba */
+    }
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0); /* Termina en tamaño normal y posición */
+    }
+}
+
+/* Encabezado del modal */
+.modal-header {
+    background: linear-gradient(135deg, #d32f2f, #b71c1c); /* Gradiente rojo */
+    padding: 20px 25px;
+    border-radius: 15px 15px 0 0; /* Solo esquinas superiores redondeadas */
+    display: flex;
+    justify-content: space-between; /* Título a la izquierda, X a la derecha */
+    align-items: center;
+    border-bottom: 2px solid #5a2a2a; /* Línea divisoria */
+}
+
+.modal-header h2 {
+    color: white;
+    margin: 0;
+    font-weight: 400;
+    font-size: 1.4em;
+}
+
+/* Botón de cerrar (X) */
+.close-modal {
+    color: white;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background: none;
+    border: none;
+    padding: 0;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.close-modal:hover {
+    color: #ffcdd2; /* Rosa claro al hover */
+    transform: scale(1.1); /* Efecto de agrandamiento */
+}
+
+/* Formulario dentro del modal */
+.modal .edit-form {
+    background: transparent; /* Sin fondo adicional */
+    box-shadow: none;
+    border: none;
+    margin: 0;
+    padding: 30px;
+}
+
+/* Inputs dentro del modal */
+.modal .form-group input {
+    background: rgba(50, 50, 50, 0.8);
+    border: 1px solid #5a2a2a;
+    color: #e0e0e0;
+    transition: all 0.3s ease;
+}
+
+.modal .form-group input:focus {
+    border-color: #d32f2f;
+    background: rgba(60, 60, 60, 0.8);
+    box-shadow: 0 0 0 2px rgba(211, 47, 47, 0.3);
+}
+
+/* Botones dentro del modal */
+.modal .form-actions {
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid #5a2a2a; /* Línea divisoria */
+    display: flex;
+    gap: 15px;
+    justify-content: flex-end; /* Botones a la derecha */
+}
+
+.modal .btn-update {
+    background: linear-gradient(135deg, #d32f2f, #b71c1c);
+    color: white;
+    padding: 12px 25px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    min-width: 150px; /* Ancho mínimo consistente */
+}
+
+.modal .btn-update:hover {
+    background: linear-gradient(135deg, #b71c1c, #d32f2f);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(211, 47, 47, 0.4);
+}
+
+.modal .btn-cancel {
+    background: #5a2a2a;
+    color: #e0e0e0;
+    padding: 12px 25px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-size: 16px;
+    transition: all 0.3s ease;
+    border: 1px solid #7a3a3a;
+    cursor: pointer;
+    min-width: 120px;
+    text-align: center;
+}
+
+.modal .btn-cancel:hover {
+    background: #7a3a3a;
+    color: white;
+}
+
+/* Asegurar que el modal esté encima de todo */
+.modal-content {
+    z-index: 1001; /* Z-index más alto que el fondo */
+}
+
+/* Overlay oscuro para el modal */
+.modal::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.8);
+    z-index: -1; /* Detrás del contenido del modal */
+}
+
+/* ===== MEJORAS ADICIONALES PARA EL MODAL ===== */
+.modal-content {
+    transform: translateY(-20px); /* Posición inicial para animación */
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.modal.show .modal-content {
+    transform: translateY(0); /* Posición final */
+}
+
+/* Efecto hover para botones de cierre */
+.close-modal:hover {
+    background: rgba(255, 255, 255, 0.1); /* Fondo sutil al hover */
+    border-radius: 50%; /* Forma circular */
+}
+
+/* ===== PÁGINA DE REGISTRO ===== */
+/* Sección de registro en login */
+.register-section {
+    margin-top: 25px;
+    padding-top: 20px;
+    border-top: 1px solid #5a2a2a; /* Línea divisoria */
+    text-align: center;
+}
+
+.register-section p {
+    color: #bdbdbd;
+    margin-bottom: 15px;
+    font-size: 14px;
+}
+
+/* Botón de registro */
+.btn-register {
+    background: linear-gradient(135deg, #4caf50, #2e7d32); /* Gradiente verde */
+    color: white;
+    padding: 12px 20px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    display: inline-block;
+    border: none;
+    cursor: pointer;
+}
+
+.btn-register:hover {
+    background: linear-gradient(135deg, #2e7d32, #4caf50); /* Gradiente invertido */
+    transform: translateY(-2px); /* Efecto de elevación */
+    box-shadow: 0 5px 15px rgba(76, 175, 80, 0.4); /* Sombra verde */
+}
+
+/* Mensaje de éxito */
+.success-message {
+    background: #2e7d32; /* Verde oscuro */
+    color: white;
+    padding: 12px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    border-left: 4px solid #4caf50; /* Borde izquierdo verde */
+}
+
+/* Ajustes específicos para formulario de registro */
+.login-container .form-actions {
+    display: flex;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.login-container .btn-cancel {
+    background: #5a2a2a;
+    color: #e0e0e0;
+    padding: 12px 20px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-size: 14px;
+    transition: all 0.3s ease;
+    border: 1px solid #7a3a3a;
+    text-align: center;
+    flex: 1; /* Ocupa 1 parte del espacio */
+}
+
+.login-container .btn-cancel:hover {
+    background: #7a3a3a;
+    color: white;
+}
+
+.login-container .btn-login {
+    flex: 2; /* Ocupa 2 partes del espacio (más grande que cancelar) */
+}

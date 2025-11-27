@@ -1,0 +1,21 @@
+{
+  "name": "sistema-carros",
+  "version": "1.0.0",
+  "description": "Sistema de gestión de carros con login y CRUD",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "node app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": ["carros", "crud", "login", "mysql", "express"],
+  "author": "Tu Nombre",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^2.2.1",
+    "ejs": "^3.1.10",
+    "express": "^5.1.0",
+    "mysql2": "^3.15.3",
+    "express-session": "^1.18.1"
+  }
+}
